@@ -454,11 +454,38 @@ rc: 'Nuevo Encuentro por la Democracia y la Equidad, más conocido como Nuevo En
             rc: 'Yasy Jateré es el cuarto hijo de Tau y Keraná en la mitología guaraní. Tiene la apariencia de niño pequeño con cabello rubio. Su creencia se extiende por todo el territorio del Paraguay, así como por el noreste de Argentina. Se lo conoce también por tener apariencia de niño y raptar a otros, llevándolos muy lejos y abandonándolos ahí.'},
         ]		
     };
-	
+   
     //aqui se guardan todas las preguntas que ya salieron, para no entregar preguntas repetidas
     preguntas_obtenidas = [];
 
-	getPregunta(){
-		
+    getAllCategoria( categoria_id ){
+        return this.preguntas[categoria_id];
+    }
+
+	getPregunta( resultadoRuleta ){
+        let preguntas_categoria = this.getAllCategoria( resultadoRuleta.id );
+        let cant_preg_categoria = preguntas_categoria.length;
+        
+        //Se verifica que no se hayan acabado las preguntas
+        if ( cant_preg_categoria == 0){
+            return null;
+        }
+        
+        //se verifica si entre las preguntas que salieron no existe la categoria
+        if (!this.preguntas_obtenidas.hasOwnProperty(resultadoRuleta.id)){
+            this.preguntas_obtenidas[resultadoRuleta.id] = [];
+        }
+
+        let numero_azar = Math.floor(Math.random() * cant_preg_categoria);
+        let pregunta = preguntas_categoria[ numero_azar ];
+
+        //se quita la pregunta del arreglo de preguntas para que ya no vuelva a salir
+        preguntas_categoria.splice( numero_azar, 1 );
+        
+		return pregunta;
 	}
+
+    comprobarValidez(){
+
+    }
 }

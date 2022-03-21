@@ -10,13 +10,16 @@ window.addEventListener('load', function() {
         }
     };
 
-    let juego        = new Phaser.Game(config);
-    let objetosJuego = [];
-    let ruleta       = null;
-    let selector_r   = null;
-    let boton_tirar  = null;
+    let juego         = new Phaser.Game(config);
+    let ruleta        = null;
+    let selector_r    = null;
+    let boton_tirar   = null;
+    let listado_preg  = null;
+    let pantalla_preg = null; 
 
     function preload (){
+        pantalla_preg = new PantallaPreguntas(); 
+        listado_preg  = new ListadoPreguntas();
         let configRuleta = {
             colorBorde: '#888',
             colorRelleno: 'yellow',
@@ -31,14 +34,22 @@ window.addEventListener('load', function() {
                 { id:4, color: '#FFFFFF', a_i:0, a_f:0, nombre: 'Ciencia'     },
                 { id:5, color: '#0bace8', a_i:0, a_f:0, nombre: 'Política'    },
                 { id:6, color: '#bf32b7', a_i:0, a_f:0, nombre: 'Cine'        },             
-            ]
+            ],
+
+            listado_preguntas: listado_preg,
+            pantalla_preguntas: pantalla_preg
         };
         ruleta = new Ruleta({ configuracionJuego:config, juego:this, configuracionRuleta:configRuleta } );
         ruleta.cargarImg();
+
         selector_r = new SelectorRuleta( { configuracionJuego:config, juego:this } );
         selector_r.cargarImg();
         boton_tirar = new BotonTirarRuleta( { configuracionJuego:config, juego:this, ruleta: ruleta } );
         boton_tirar.cargarImg();
+
+        pantalla_preg.setRuleta( ruleta );
+        pantalla_preg.setBotonTirar( boton_tirar );
+        pantalla_preg.setSelector( selector_r );        
     }
 
     function create (){

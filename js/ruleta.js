@@ -1,8 +1,6 @@
 
-class Ruleta {
+class Ruleta extends ElementoJuego {
     imgURL = './assets/ruleta.svg';
-        
-    phaserSprite = null;
 
     configJuego = null;
     config      = null;
@@ -17,16 +15,23 @@ class Ruleta {
     aceleracion = -.1;
 
     ultimo_resultado    = null;
+    ultima_pregunta     = null;
     callback_resultado  = null;
     resultado_entregado = true;
 
     intervalo_subdivision = null;
 
+    listado_preguntas = null;
+    pantalla_preguntas = null;
+
     constructor ( params ){
+        super( params );
         this.configJuego = params.configuracionJuego;
         this.juego       = params.juego;
         this.config      = params.configuracionRuleta;
-        
+
+        this.listado_preguntas = this.config.listado_preguntas;
+        this.pantalla_preguntas = this.config.pantalla_preguntas;
         this.intervalo_subdivision = 360/this.config.categorias.length;
 
         //Se asignan los valores de angulos a las categorias
@@ -35,7 +40,6 @@ class Ruleta {
             this.config.categorias[c].a_i =  c*this.intervalo_subdivision;
             this.config.categorias[c].a_f = (c+1)*this.intervalo_subdivision;
         }
-        console.log(this.config.categorias);
     }
 
     getNombreImg(){
@@ -46,15 +50,6 @@ class Ruleta {
         this.callback_resultado = callback;
     }
 
-    cargarImg(){
-        this.juego.load.svg( this.getNombreImg(), this.imgURL );
-    }
-
-    defPhaserSprite(){
-        this.phaserSprite = this.juego.add.sprite(this.x, this.y, this.getNombreImg());
-        console.log(this.phaserSprite.angle)
-    }
-
     getResultado(){
         //Se le suma 90º por que el selector esta arriba, no a la derecha de la ruleta
         let pos = anguloPhaserAComun( this.phaserSprite.angle + 90 );
@@ -62,11 +57,10 @@ class Ruleta {
 
         for (let c=0; c < this.config.categorias.length; c++){
             if ( numeroEntre(pos, this.config.categorias[c].a_i, this.config.categorias[c].a_f) ){
-                this.ultimo_resultado = this.config.categorias[c];
-                break;
+                return this.config.categorias[c];
             }
         }
-        return { R:this.ultimo_resultado, P:pos, A: this.phaserSprite.angle };
+        return null;
     }
 
     update(){
@@ -78,7 +72,9 @@ class Ruleta {
             this.velocidad = 0;
             if (!this.resultado_entregado){
                 this.resultado_entregado = true;
-                this.callback_resultado( this.getResultado() );
+                this.ultimo_resultado = this.getResultado();
+                this.ultima_pregunta = this.listado_preguntas.getPregunta( this.ultimo_resultado );
+                this.pantalla_preguntas.mostrarVista( this.ultima_pregunta );
             }
         }
     }
