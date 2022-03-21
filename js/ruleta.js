@@ -46,10 +46,6 @@ class Ruleta extends ElementoJuego {
         return 'ruleta';
     }
 
-    setCallbackResultado( callback ){
-        this.callback_resultado = callback;
-    }
-
     getResultado(){
         //Se le suma 90º por que el selector esta arriba, no a la derecha de la ruleta
         let pos = anguloPhaserAComun( this.phaserSprite.angle + 90 );

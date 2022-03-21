@@ -56,10 +56,6 @@ window.addEventListener('load', function() {
         ruleta.defPhaserSprite();
         selector_r.defPhaserSprite();
         boton_tirar.defPhaserSprite();
-    
-        ruleta.setCallbackResultado( (r)=>{
-            console.log(r);
-        } );
     }
 
     function update (){

@@ -6,7 +6,7 @@ class BotonTirarRuleta extends ElementoJuego {
     ruleta      = null;
 
     x = 400;
-    y = 500;
+    y = 550;
 
     constructor ( params ){
         super( params );
