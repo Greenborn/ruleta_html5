@@ -65,11 +65,13 @@ window.addEventListener('load', function() {
         pantalla_preg.setSelector( selector_r );
         pantalla_preg.setDisplayPregs( display_preg );
         pantalla_preg.setBtnOpciones( btns_opciones );
+        pantalla_preg.cargarAudio();
     }
 
     function create (){
         ruleta.defPhaserSprite();
         ruleta.defAudio();
+        pantalla_preg.defAudio();
         selector_r.defPhaserSprite();
         boton_tirar.defPhaserSprite();
         display_preg.defPhaserSprite();

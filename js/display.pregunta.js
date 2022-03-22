@@ -10,7 +10,6 @@ class DisplayPreguntas extends ElementoJuego{
 
     constructor ( params ){
         super( params );
-        
     }
 
     cargar_pregunta( pregunta ){

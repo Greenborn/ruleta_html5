@@ -14,6 +14,9 @@ class PantallaPreguntas{
 
     textos_respuestas = [];
 
+    snd_correcto   = null;
+    snd_incorrecto = null;
+
     constructor( params ){
         this.juegoConf = params.configuracionJuego;
         this.juego     = params.juego;
@@ -64,13 +67,25 @@ class PantallaPreguntas{
         }
     }
 
+    cargarAudio(){
+        this.juego.load.audio('correcto1',   [ 'assets/audio/bien1.mp3' ]);
+        this.juego.load.audio('incorrecto1', [ 'assets/audio/mal1.mp3' ]);
+    }
+
+    defAudio(){
+        this.snd_correcto   = this.juego.sound.add('correcto1');
+        this.snd_incorrecto = this.juego.sound.add('incorrecto1');
+    }
+
     respuesta_incorrecta(){
         this.resultado_ultima_r = false;
+        this.juego.sound.play('incorrecto1');
         console.log(0);
     }
 
     respuesta_correcta(){
         this.resultado_ultima_r = true;
+        this.juego.sound.play('correcto1');
         console.log(1);
     }
 
