@@ -53,6 +53,7 @@ window.addEventListener('load', function() {
         for (let c=1; c < 5; c++){
             btns_opciones[c] = new Boton( { configuracionJuego:config, juego:this, imgURL:'./assets/b'+c+'.svg', nombreImg:'b'+c } );
             btns_opciones[c].cargarImg();
+            btns_opciones[c].cargarAudio();
         }
 
         pantalla_preg.setRuleta( ruleta );
@@ -71,6 +72,7 @@ window.addEventListener('load', function() {
         });
         for (let c=1; c < 5; c++){
             btns_opciones[c].defPhaserSprite();
+            btns_opciones[c].defAudio();
             btns_opciones[c].ocultar();
         }
     }
