@@ -16,11 +16,12 @@ window.addEventListener('load', function() {
     let boton_tirar   = null;
     let listado_preg  = null;
     let pantalla_preg = null; 
+    let display_preg  = null;
 
     let btns_opciones = [];
 
     function preload (){
-        pantalla_preg = new PantallaPreguntas({ configuracionJuego:config }); 
+        pantalla_preg = new PantallaPreguntas({ configuracionJuego:config, juego:this }); 
         listado_preg  = new ListadoPreguntas();
         let configRuleta = {
             colorBorde: '#888',
@@ -56,9 +57,13 @@ window.addEventListener('load', function() {
             btns_opciones[c].cargarAudio();
         }
 
+        display_preg = new DisplayPreguntas({ configuracionJuego:config, juego:this, imgURL:'./assets/areapreg.svg', nombreImg:'areapreg' });
+        display_preg.cargarImg();
+
         pantalla_preg.setRuleta( ruleta );
         pantalla_preg.setBotonTirar( boton_tirar );
         pantalla_preg.setSelector( selector_r );
+        pantalla_preg.setDisplayPregs( display_preg );
         pantalla_preg.setBtnOpciones( btns_opciones );
     }
 
@@ -67,6 +72,7 @@ window.addEventListener('load', function() {
         ruleta.defAudio();
         selector_r.defPhaserSprite();
         boton_tirar.defPhaserSprite();
+        display_preg.defPhaserSprite();
         boton_tirar.setOnClick( ()=> {
             ruleta.tirar();
         });
@@ -75,6 +81,7 @@ window.addEventListener('load', function() {
             btns_opciones[c].defAudio();
             btns_opciones[c].ocultar();
         }
+        display_preg.ocultar();
     }
 
     function update (){

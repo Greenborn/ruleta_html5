@@ -3,6 +3,7 @@ class Boton extends ElementoJuego {
     y = 550;
     delay = 150;
     click_btn = null;
+    click_tint = 0xd4c048ff;
 
     constructor ( params ){
         super( params );
@@ -26,7 +27,7 @@ class Boton extends ElementoJuego {
         this.phaserSprite = this.juego.add.sprite(this.x, this.y, this.getNombreImg()).setInteractive();
 
         this.phaserSprite.on('pointerdown', function (pointer) {
-            this.setTint(0xff0000); 
+            this.setTint(obj.click_tint); 
             obj.juego.sound.play('click_btn');
             setTimeout( ()=>{
                 obj.onClick();
