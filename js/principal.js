@@ -17,8 +17,10 @@ window.addEventListener('load', function() {
     let listado_preg  = null;
     let pantalla_preg = null; 
 
+    let btns_opciones = [];
+
     function preload (){
-        pantalla_preg = new PantallaPreguntas(); 
+        pantalla_preg = new PantallaPreguntas({ configuracionJuego:config }); 
         listado_preg  = new ListadoPreguntas();
         let configRuleta = {
             colorBorde: '#888',
@@ -39,23 +41,38 @@ window.addEventListener('load', function() {
             listado_preguntas: listado_preg,
             pantalla_preguntas: pantalla_preg
         };
-        ruleta = new Ruleta({ configuracionJuego:config, juego:this, configuracionRuleta:configRuleta } );
+        ruleta = new Ruleta({ configuracionJuego:config, juego:this,  imgURL:'./assets/ruleta.svg', nombreImg:'ruleta', configuracionRuleta:configRuleta } );
         ruleta.cargarImg();
+        ruleta.cargarAudio();
 
-        selector_r = new SelectorRuleta( { configuracionJuego:config, juego:this } );
+        selector_r = new SelectorRuleta( { configuracionJuego:config, juego:this, imgURL:'./assets/select_ruleta.svg', nombreImg:'select_ruleta' } );
         selector_r.cargarImg();
-        boton_tirar = new BotonTirarRuleta( { configuracionJuego:config, juego:this, ruleta: ruleta } );
+        boton_tirar = new Boton( { configuracionJuego:config, juego:this, imgURL:'./assets/btn_tirar.svg', nombreImg:'btn_tirar' } );
         boton_tirar.cargarImg();
+
+        for (let c=1; c < 5; c++){
+            btns_opciones[c] = new Boton( { configuracionJuego:config, juego:this, imgURL:'./assets/b'+c+'.svg', nombreImg:'b'+c } );
+            btns_opciones[c].cargarImg();
+        }
 
         pantalla_preg.setRuleta( ruleta );
         pantalla_preg.setBotonTirar( boton_tirar );
-        pantalla_preg.setSelector( selector_r );        
+        pantalla_preg.setSelector( selector_r );
+        pantalla_preg.setBtnOpciones( btns_opciones );
     }
 
     function create (){
         ruleta.defPhaserSprite();
+        ruleta.defAudio();
         selector_r.defPhaserSprite();
         boton_tirar.defPhaserSprite();
+        boton_tirar.setOnClick( ()=> {
+            ruleta.tirar();
+        });
+        for (let c=1; c < 5; c++){
+            btns_opciones[c].defPhaserSprite();
+            btns_opciones[c].ocultar();
+        }
     }
 
     function update (){

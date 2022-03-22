@@ -1,6 +1,22 @@
 class ElementoJuego {
     phaserSprite = null;
     animacionSalida = false;
+    imgURL = '';
+    nombreImg = '';
+
+    configJuego = null;
+    juego       = null;
+
+    constructor( params ){
+        this.configJuego = params.configuracionJuego;
+        this.juego       = params.juego;
+        this.imgURL      = params.imgURL;
+        this.nombreImg   = params.nombreImg;
+    }
+
+    getNombreImg(){
+        return this.nombreImg;
+    }
 
     cargarImg(){
         this.juego.load.svg( this.getNombreImg(), this.imgURL );
@@ -16,5 +32,10 @@ class ElementoJuego {
 
     mostrar(){
         this.phaserSprite.visible = true;
+    }
+
+    posicionar(x,y){
+        this.x = x;
+        this.y = y;
     }
 }

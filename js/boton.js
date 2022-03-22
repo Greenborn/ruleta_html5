@@ -1,22 +1,14 @@
-class BotonTirarRuleta extends ElementoJuego {
-    imgURL = './assets/btn_tirar.svg';
-
-    configJuego = null;
-    juego       = null;
-    ruleta      = null;
-
+class Boton extends ElementoJuego {
     x = 400;
     y = 550;
 
     constructor ( params ){
         super( params );
-        this.configJuego = params.configuracionJuego;
-        this.juego       = params.juego;
-        this.ruleta      = params.ruleta;
     }
 
-    getNombreImg(){
-        return 'btn_tirar';
+    onClick = ()=>{};
+    setOnClick( funcion ){
+        this.onClick = funcion;
     }
 
     defPhaserSprite(){
@@ -25,7 +17,7 @@ class BotonTirarRuleta extends ElementoJuego {
 
         this.phaserSprite.on('pointerdown', function (pointer) {
             this.setTint(0xff0000); 
-            obj.ruleta.tirar();
+            obj.onClick();
         });
 
         this.phaserSprite.on('pointerup', function (pointer) {

@@ -1,10 +1,6 @@
 
 class Ruleta extends ElementoJuego {
-    imgURL = './assets/ruleta.svg';
-
-    configJuego = null;
     config      = null;
-    juego       = null;
 
     diametro   = 0;
     radio      = 0;
@@ -24,10 +20,11 @@ class Ruleta extends ElementoJuego {
     listado_preguntas = null;
     pantalla_preguntas = null;
 
+    click_giro   = null;
+    click_cnt    = 0;
+    click_cnt_ant = 0;
     constructor ( params ){
         super( params );
-        this.configJuego = params.configuracionJuego;
-        this.juego       = params.juego;
         this.config      = params.configuracionRuleta;
 
         this.listado_preguntas = this.config.listado_preguntas;
@@ -40,10 +37,6 @@ class Ruleta extends ElementoJuego {
             this.config.categorias[c].a_i =  c*this.intervalo_subdivision;
             this.config.categorias[c].a_f = (c+1)*this.intervalo_subdivision;
         }
-    }
-
-    getNombreImg(){
-        return 'ruleta';
     }
 
     getResultado(){
@@ -59,6 +52,14 @@ class Ruleta extends ElementoJuego {
         return null;
     }
 
+    cargarAudio(){
+        this.juego.load.audio('click_ruleta', [ 'assets/audio/click1.ogg', 'assets/audio/click1.mp3' ]);
+    }
+
+    defAudio(){
+        this.click_giro = this.juego.sound.add('click_ruleta');
+    }
+
     update(){
         this.phaserSprite.angle += this.velocidad;
 
@@ -72,7 +73,17 @@ class Ruleta extends ElementoJuego {
                 this.ultima_pregunta = this.listado_preguntas.getPregunta( this.ultimo_resultado );
                 this.pantalla_preguntas.mostrarVista( this.ultima_pregunta );
             }
-        }
+        } else {
+            //Se hace el sonido de la ruleta
+            this.click_cnt = Math.round(this.phaserSprite.angle/this.intervalo_subdivision);
+            if (this.click_cnt != this.click_cnt_ant){
+                this.click_cnt_ant = this.click_cnt;
+                this.juego.sound.play('click_ruleta');
+            }
+            
+            
+        }   
+
     }
 
     tirar(){
