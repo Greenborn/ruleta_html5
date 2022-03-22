@@ -18,7 +18,6 @@ class Ruleta extends ElementoJuego {
     intervalo_subdivision = null;
 
     listado_preguntas = null;
-    pantalla_preguntas = null;
 
     click_giro   = null;
     click_cnt    = 0;
@@ -28,7 +27,6 @@ class Ruleta extends ElementoJuego {
         this.config      = params.configuracionRuleta;
 
         this.listado_preguntas = this.config.listado_preguntas;
-        this.pantalla_preguntas = this.config.pantalla_preguntas;
         this.intervalo_subdivision = 360/this.config.categorias.length;
 
         //Se asignan los valores de angulos a las categorias
@@ -71,7 +69,7 @@ class Ruleta extends ElementoJuego {
                 this.resultado_entregado = true;
                 this.ultimo_resultado = this.getResultado();
                 this.ultima_pregunta = this.listado_preguntas.getPregunta( this.ultimo_resultado );
-                this.pantalla_preguntas.mostrarVista( this.ultima_pregunta );
+                this.callback_resultado();
             }
         } else {
             //Se hace el sonido de la ruleta

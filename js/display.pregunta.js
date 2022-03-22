@@ -22,4 +22,10 @@ class DisplayPreguntas extends ElementoJuego{
         this.texto.setWordWrapWidth( this.ancho, true );
         this.texto.setText('¿'+this.pregunta_actual.t+'?');
     }
+
+    ocultar(){
+        super.ocultar();
+        if ( this.texto != null)
+            this.texto.destroy();
+    }
 }

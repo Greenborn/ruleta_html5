@@ -2,8 +2,11 @@ class PantallaPreguntas{
     ruleta        = null;
     boton_tirar   = null;
     selector      = null;
-    btns_opciones = null;
-    display_pregs = null;
+    btns_opciones = [];
+    display_preg  = null;
+    puntuador     = null;
+    pantalla_resp = null;
+    pantalla_ruleta = null;
 
     juegoConf = null;
 
@@ -25,12 +28,8 @@ class PantallaPreguntas{
     setRuleta( ruleta ){ this.ruleta = ruleta; }
     setBotonTirar ( boton_tirar ){ this.boton_tirar = boton_tirar; }
     setSelector( selector ){ this.selector = selector; }
+    setPuntuador( puntuador ){ this.puntuador = puntuador; }
     
-    setDisplayPregs( display_preg ){ 
-        this.display_pregs = display_preg; 
-        this.display_pregs.posicionar( this.juegoConf.width/2, 50 );
-    }
-
     setBtnOpciones( btns_opciones ) { 
         this.btns_opciones = btns_opciones; 
         let difX = 125;
@@ -41,6 +40,34 @@ class PantallaPreguntas{
             this.btns_opciones[c].setOnClick( () => { this.opcion_btn_click(c); } );
             i--;
         }
+    }
+
+    preload(){
+        this.cargarAudio();
+
+        for (let c=1; c < 5; c++){
+            this.btns_opciones[c] = new Boton( { configuracionJuego:this.juegoConf, juego:this.juego, imgURL:'./assets/b'+c+'.svg', nombreImg:'b'+c } );
+            this.btns_opciones[c].cargarImg();
+            this.btns_opciones[c].cargarAudio();
+        }
+        this.setBtnOpciones( this.btns_opciones );
+
+        this.display_preg = new DisplayPreguntas({ configuracionJuego:this.juegoConf, juego:this.juego, imgURL:'./assets/areapreg.svg', nombreImg:'areapreg' });
+        this.display_preg.cargarImg();
+    }
+
+    create(){
+        this.defAudio();
+
+        for (let c=1; c < 5; c++){
+            this.btns_opciones[c].defPhaserSprite();
+            this.btns_opciones[c].defAudio();
+            this.btns_opciones[c].ocultar();
+        }
+
+        this.display_preg.posicionar( this.juegoConf.width/2, 50 );
+        this.display_preg.defPhaserSprite();
+        this.display_preg.ocultar();
     }
 
     opcion_btn_click( numero ){
@@ -80,21 +107,31 @@ class PantallaPreguntas{
     respuesta_incorrecta(){
         this.resultado_ultima_r = false;
         this.juego.sound.play('incorrecto1');
-        console.log(0);
+        this.ocultarVista();
+        this.pantalla_resp.mostrarVista(this.resultado_ultima_r, this.ultima_pregunta);
     }
 
     respuesta_correcta(){
         this.resultado_ultima_r = true;
         this.juego.sound.play('correcto1');
-        console.log(1);
+        this.ocultarVista();
+        this.pantalla_resp.mostrarVista(this.resultado_ultima_r, this.ultima_pregunta);
+    }
+
+    ocultarVista(){
+        for (let c = 1; c < 5; c++){
+            this.btns_opciones[c].ocultar();
+        }
+        this.display_preg.ocultar();
+        for (let c=0; c < this.textos_respuestas.length; c++){
+            this.textos_respuestas[c].destroy();
+        }
+        this.textos_respuestas = [];
     }
 
     mostrarVista( pregunta_obtenida ){
-        this.ruleta.ocultar();
-        this.boton_tirar.ocultar();
-        this.selector.ocultar();
-
-        this.display_pregs.mostrar();
+        this.pantalla_ruleta.ocultarVista();
+        this.display_preg.mostrar();
 
         for (let c=1; c < this.btns_opciones.length; c++){
             this.btns_opciones[c].mostrar();
@@ -116,6 +153,6 @@ class PantallaPreguntas{
             i--;
         }
 
-        this.display_pregs.cargar_pregunta( this.ultima_pregunta );
+        this.display_preg.cargar_pregunta( this.ultima_pregunta );
     }
 }
