@@ -7,7 +7,8 @@ window.addEventListener('load', function() {
             preload: preload,
             create: create,
             update: update
-        }
+        },
+        pageAlignHorizontally : true,
     };
 
     let juego         = new Phaser.Game(config);
