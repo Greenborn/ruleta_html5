@@ -33,10 +33,9 @@ class PantallaPreguntas{
     setBtnOpciones( btns_opciones ) { 
         this.btns_opciones = btns_opciones; 
         let difX = 125;
-        let difY = 240/2; 
         let i = 3;
         for (let c=1; c < 5 ; c++){
-            this.btns_opciones[c].posicionar( difX, this.juegoConf.width/2 -(i)*80 +difY);
+            this.btns_opciones[c].posicionar( difX, this.juegoConf.width/2 -(i)*80);
             this.btns_opciones[c].setOnClick( () => { this.opcion_btn_click(c); } );
             i--;
         }
@@ -140,14 +139,13 @@ class PantallaPreguntas{
         this.ultima_pregunta = pregunta_obtenida;
         this.lista_respuesta = [];
         let difX = 170;
-        let difY = 240/2-10; 
         let i = 3;
         for (let c=0; c< this.ultima_pregunta.r.length; c++){
             this.lista_respuesta.push({ n:c+1, r:this.ultima_pregunta.r[c]  })
             if (this.textos_respuestas[c] != undefined){
                 this.textos_respuestas[c].destroy();
             }
-            this.textos_respuestas[c] = this.juego.add.text(difX, this.juegoConf.width/2 -(i)*80 +difY, '', 
+            this.textos_respuestas[c] = this.juego.add.text(difX, this.juegoConf.width/2 -(i)*80, '', 
                             { fontFamily: 'Andale Mono, Liberation Mono, Cousine', fontSize: 20, color: '#00ff45' });
             this.textos_respuestas[c].setText( this.ultima_pregunta.r[c].t );
             i--;

@@ -7,6 +7,9 @@ class ElementoJuego {
     configJuego = null;
     juego       = null;
 
+    x = 0;
+    y = 0;
+
     constructor( params ){
         this.configJuego = params.configuracionJuego;
         this.juego       = params.juego;
@@ -24,6 +27,8 @@ class ElementoJuego {
 
     defPhaserSprite(){
         this.phaserSprite = this.juego.add.sprite(this.x, this.y, this.getNombreImg());
+        console.log (this.configJuego.scaleRatio);
+        this.phaserSprite.setScale( this.configJuego.scaleRatio );
     }
 
     ocultar(){

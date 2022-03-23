@@ -4,9 +4,7 @@ class Ruleta extends ElementoJuego {
 
     diametro   = 0;
     radio      = 0;
-    x          = 400;
-    y          = 250;
-
+    
     velocidad   = 0;
     aceleracion = -.1;
 
@@ -35,6 +33,8 @@ class Ruleta extends ElementoJuego {
             this.config.categorias[c].a_i =  c*this.intervalo_subdivision;
             this.config.categorias[c].a_f = (c+1)*this.intervalo_subdivision;
         }
+
+        this.posicionar( this.configJuego.width / 2, this.configJuego.height / 2.5 );
     }
 
     getResultado(){

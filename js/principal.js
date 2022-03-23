@@ -1,8 +1,9 @@
 window.addEventListener('load', function() {
     let config = {
-        type: Phaser.AUTO,
-        width: 800,
-        height: 600,
+        type:       Phaser.AUTO,
+        width:      window.innerWidth * window.devicePixelRatio,
+        height:     window.innerHeight * window.devicePixelRatio,
+        scaleRatio: window.devicePixelRatio,
         scene: {
             preload: preload,
             create: create,

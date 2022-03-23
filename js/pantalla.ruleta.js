@@ -46,6 +46,7 @@ class PantallaRuleta {
         this.selector_r.cargarImg();
         this.boton_tirar = new Boton( { configuracionJuego:this.juegoConf, juego:this.juego, imgURL:'./assets/btn_tirar.svg', nombreImg:'btn_tirar' } );
         this.boton_tirar.cargarImg();
+        this.boton_tirar.posicionar( this.juegoConf.width / 2, this.juegoConf.height - this.juegoConf.height/10 );
 
         this.puntuador = new Puntuador({ configuracionJuego:this.juegoConf, juego:this.juego });
 

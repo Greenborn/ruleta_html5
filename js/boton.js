@@ -1,6 +1,4 @@
 class Boton extends ElementoJuego {
-    x = 400;
-    y = 550;
     delay = 150;
     click_btn = null;
     click_tint = 0xd4c048ff;
@@ -23,8 +21,9 @@ class Boton extends ElementoJuego {
     }
 
     defPhaserSprite(){
+        super.defPhaserSprite();
         let obj = this;
-        this.phaserSprite = this.juego.add.sprite(this.x, this.y, this.getNombreImg()).setInteractive();
+        this.phaserSprite.setInteractive();
 
         this.phaserSprite.on('pointerdown', function (pointer) {
             this.setTint(obj.click_tint); 
