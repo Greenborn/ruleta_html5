@@ -21,7 +21,7 @@ class PantallaRespuesta {
     }
 
     preload(){
-        this.boton_sig = new Boton( { configuracionJuego:this.juegoConf, juego:this.juego, imgURL:'./assets/btn_sig.svg', nombreImg:'btn_sig' } );
+        this.boton_sig = new Boton( { configuracionJuego:this.juegoConf, juego:this.juego, imgURL:'./assets/imagen/btn_sig.svg', nombreImg:'btn_sig' } );
         this.boton_sig.cargarImg();
         this.boton_sig.posicionar( this.juegoConf.width / 2, this.juegoConf.height - this.juegoConf.height/10 );
     }

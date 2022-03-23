@@ -45,13 +45,13 @@ class PantallaPreguntas{
         this.cargarAudio();
 
         for (let c=1; c < 5; c++){
-            this.btns_opciones[c] = new Boton( { configuracionJuego:this.juegoConf, juego:this.juego, imgURL:'./assets/b'+c+'.svg', nombreImg:'b'+c } );
+            this.btns_opciones[c] = new Boton( { configuracionJuego:this.juegoConf, juego:this.juego, imgURL:'./assets/imagen/b'+c+'.svg', nombreImg:'b'+c } );
             this.btns_opciones[c].cargarImg();
             this.btns_opciones[c].cargarAudio();
         }
         this.setBtnOpciones( this.btns_opciones );
 
-        this.display_preg = new DisplayPreguntas({ configuracionJuego:this.juegoConf, juego:this.juego, imgURL:'./assets/areapreg.svg', nombreImg:'areapreg' });
+        this.display_preg = new DisplayPreguntas({ configuracionJuego:this.juegoConf, juego:this.juego, imgURL:'./assets/imagen/areapreg.svg', nombreImg:'areapreg' });
         this.display_preg.cargarImg();
     }
 

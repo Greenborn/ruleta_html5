@@ -38,13 +38,13 @@ class PantallaRuleta {
             listado_preguntas: this.listado_preg,
             pantalla_preguntas: this.pantalla_preg
         };
-        this.ruleta = new Ruleta({ configuracionJuego:this.juegoConf, juego:this.juego,  imgURL:'./assets/ruleta.svg', nombreImg:'ruleta', configuracionRuleta:configRuleta } );
+        this.ruleta = new Ruleta({ configuracionJuego:this.juegoConf, juego:this.juego,  imgURL:'./assets/imagen/ruleta.svg', nombreImg:'ruleta', configuracionRuleta:configRuleta } );
         this.ruleta.cargarImg();
         this.ruleta.cargarAudio();
 
-        this.selector_r = new SelectorRuleta( { configuracionJuego:this.juegoConf, juego:this.juego, imgURL:'./assets/select_ruleta.svg', nombreImg:'select_ruleta' } );
+        this.selector_r = new SelectorRuleta( { configuracionJuego:this.juegoConf, juego:this.juego, imgURL:'./assets/imagen/select_ruleta.svg', nombreImg:'select_ruleta' } );
         this.selector_r.cargarImg();
-        this.boton_tirar = new Boton( { configuracionJuego:this.juegoConf, juego:this.juego, imgURL:'./assets/btn_tirar.svg', nombreImg:'btn_tirar' } );
+        this.boton_tirar = new Boton( { configuracionJuego:this.juegoConf, juego:this.juego, imgURL:'./assets/imagen/btn_tirar.svg', nombreImg:'btn_tirar' } );
         this.boton_tirar.cargarImg();
         this.boton_tirar.posicionar( this.juegoConf.width / 2, this.juegoConf.height - this.juegoConf.height/10 );
 
