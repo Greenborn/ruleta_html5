@@ -34,7 +34,6 @@ class Ruleta extends ElementoJuego {
             this.config.categorias[c].a_f = (c+1)*this.intervalo_subdivision;
         }
 
-        this.posicionar( this.configJuego.width / 2, this.configJuego.height / 2.5 );
     }
 
     getResultado(){

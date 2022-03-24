@@ -42,12 +42,11 @@ class PantallaRuleta {
         this.ruleta.cargarImg();
         this.ruleta.cargarAudio();
 
-        this.selector_r = new SelectorRuleta( { configuracionJuego:this.juegoConf, juego:this.juego, imgURL:'./assets/imagen/select_ruleta.svg', nombreImg:'select_ruleta' } );
+        this.selector_r = new ElementoJuego( { configuracionJuego:this.juegoConf, juego:this.juego, imgURL:'./assets/imagen/select_ruleta.svg', nombreImg:'select_ruleta' } );
         this.selector_r.cargarImg();
         this.boton_tirar = new Boton( { configuracionJuego:this.juegoConf, juego:this.juego, imgURL:'./assets/imagen/btn_tirar.svg', nombreImg:'btn_tirar' } );
         this.boton_tirar.cargarImg();
-        this.boton_tirar.posicionar( this.juegoConf.width / 2, this.juegoConf.height - this.juegoConf.height/10 );
-
+        
         this.puntuador = new Puntuador({ configuracionJuego:this.juegoConf, juego:this.juego });
 
         this.pantalla_preg.setRuleta( this.ruleta );
@@ -70,11 +69,18 @@ class PantallaRuleta {
 
     create(){
         this.ruleta.defPhaserSprite();
+        this.ruleta.phaserSprite.setScale(1.5);
         this.ruleta.defAudio();
+        this.ruleta.posicionar( this.juegoConf.width / 2, this.juegoConf.height / 2.5 );
         this.ruleta.callback_resultado = () => { this.pantalla_preg.mostrarVista( this.ruleta.ultima_pregunta ); }
         
         this.selector_r.defPhaserSprite();
+        this.selector_r.posicionar( this.juegoConf.width / 2, this.juegoConf.height / 4.75 );
+        this.selector_r.phaserSprite.setScale(1.5);
+
         this.boton_tirar.defPhaserSprite();
+        this.boton_tirar.posicionar( this.juegoConf.width / 2, this.juegoConf.height * .75 );
+        this.boton_tirar.phaserSprite.setScale(2);
         
         this.boton_tirar.setOnClick( ()=> {
             this.ruleta.tirar();

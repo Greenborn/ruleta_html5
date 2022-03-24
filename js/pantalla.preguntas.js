@@ -30,17 +30,6 @@ class PantallaPreguntas{
     setSelector( selector ){ this.selector = selector; }
     setPuntuador( puntuador ){ this.puntuador = puntuador; }
     
-    setBtnOpciones( btns_opciones ) { 
-        this.btns_opciones = btns_opciones; 
-        let difX = 185;
-        let i = 3;
-        for (let c=1; c < 5 ; c++){
-            this.btns_opciones[c].posicionar( this.juegoConf.width/2 -difX, this.juegoConf.height/1.2 -(i)*80);
-            this.btns_opciones[c].setOnClick( () => { this.opcion_btn_click(c); } );
-            i--;
-        }
-    }
-
     preload(){
         this.cargarAudio();
 
@@ -49,7 +38,6 @@ class PantallaPreguntas{
             this.btns_opciones[c].cargarImg();
             this.btns_opciones[c].cargarAudio();
         }
-        this.setBtnOpciones( this.btns_opciones );
 
         this.display_preg = new DisplayPreguntas({ configuracionJuego:this.juegoConf, juego:this.juego, imgURL:'./assets/imagen/areapreg.svg', nombreImg:'areapreg' });
         this.display_preg.cargarImg();
@@ -58,14 +46,21 @@ class PantallaPreguntas{
     create(){
         this.defAudio();
 
+        let i = 3;
         for (let c=1; c < 5; c++){
             this.btns_opciones[c].defPhaserSprite();
             this.btns_opciones[c].defAudio();
             this.btns_opciones[c].ocultar();
+
+            this.btns_opciones[c].posicionar( this.juegoConf.width*0.2, this.juegoConf.height/1.2 -(i)*160);
+            this.btns_opciones[c].phaserSprite.setScale(2);
+            this.btns_opciones[c].setOnClick( () => { this.opcion_btn_click(c); } );
+            i--;
         }
 
-        this.display_preg.posicionar( this.juegoConf.width/2, 50 );
         this.display_preg.defPhaserSprite();
+        this.display_preg.posicionar( this.juegoConf.width/2, this.juegoConf.height*.25 );
+        this.display_preg.phaserSprite.setScale(1.75);
         this.display_preg.ocultar();
     }
 
@@ -138,7 +133,6 @@ class PantallaPreguntas{
 
         this.ultima_pregunta = pregunta_obtenida;
         this.lista_respuesta = [];
-        let difX = 125;
         let diffY = 20;
         let i = 3;
         for (let c=0; c< this.ultima_pregunta.r.length; c++){
@@ -146,8 +140,9 @@ class PantallaPreguntas{
             if (this.textos_respuestas[c] != undefined){
                 this.textos_respuestas[c].destroy();
             }
-            this.textos_respuestas[c] = this.juego.add.text(this.juegoConf.width/2 - difX, this.juegoConf.height/1.2 -(i)*80 -diffY, '', 
-                            { fontFamily: 'Andale Mono, Liberation Mono, Cousine', fontSize: 20, color: '#00ff45' });
+            this.textos_respuestas[c] = this.juego.add.text(this.juegoConf.width*0.1 +160, this.juegoConf.height/1.2 -(i)*160 -diffY, '', 
+                            { fontFamily: 'Andale Mono, Liberation Mono, Cousine', fontSize: 40, color: '#00ff45' });
+            this.textos_respuestas[c].setWordWrapWidth( this.juegoConf.width - (this.juegoConf.width*0.1 +160), true );
             this.textos_respuestas[c].setText( this.ultima_pregunta.r[c].t );
             i--;
         }

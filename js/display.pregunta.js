@@ -1,9 +1,7 @@
 
 class DisplayPreguntas extends ElementoJuego{
-    x = 400;
-    y = 40;
-    alto = 80;
-    ancho = 400;
+    alto = 200;
+    ancho = 720;
 
     pregunta_actual = null;
     texto = null;
@@ -17,9 +15,9 @@ class DisplayPreguntas extends ElementoJuego{
         if (this.texto != null){
             this.texto.destroy();
         }
-        this.texto = this.juego.add.text(this.x-this.ancho/2+10, this.y-this.alto/2+10, '', 
-                        { fontFamily: 'Andale Mono, Liberation Mono, Cousine', fontSize: 21, color: '#00ff45' });
-        this.texto.setWordWrapWidth( this.ancho, true );
+        this.texto = this.juego.add.text(this.x-this.ancho*.4, this.y-this.alto/2+10, '', 
+                        { fontFamily: 'Andale Mono, Liberation Mono, Cousine', fontSize: 40, color: '#00ff45' });
+        this.texto.setWordWrapWidth( this.ancho*.8, true );
         this.texto.setText('¿'+this.pregunta_actual.t+'?');
     }
 
